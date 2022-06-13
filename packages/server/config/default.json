@@ -1,0 +1,15 @@
+{
+  "http": {
+    "port": 3001
+  },
+  "express": {
+    "routes": {
+      "path": {
+        "v1": "/api/v1"
+      }
+    }
+  },
+  "swagger": {
+    "uiPath": "/api-docs"
+  }
+}
