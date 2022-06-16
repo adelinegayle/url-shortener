@@ -1,7 +1,7 @@
 const ShortUniqueId = require("short-unique-id");
 const Url = require("../../model/Url");
 
-const createTinyUrl = async (req: any, res: any) => {
+const createShortUrl = async (req: any, res: any) => {
   const { longURL } = req.body;
   const shortID = new ShortUniqueId({ length: 6 })();
 
@@ -18,6 +18,18 @@ const createTinyUrl = async (req: any, res: any) => {
   }
 };
 
+const redirectToOriginalURL = async (req: any, res: any) => {
+  const shortURL = req.params.shortURL;
+  try {
+    const url = await Url.findOne({shortURL});
+    res.redirect(301, url.longURL);
+  }catch(err: any) {
+    res.status(400).json({ error: err.message });
+  }
+  
+}
+
 module.exports = {
-  createTinyUrl,
+  createShortUrl,
+  redirectToOriginalURL
 };
